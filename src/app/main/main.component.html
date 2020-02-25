@@ -1,0 +1,71 @@
+<!-- Barre d'entête -->
+<div class="toolbar" role="banner">
+        <span> > Smart Reporting Batch</span>
+        <div class="spacer">          
+        </div>
+
+        <div class="card-container"*ngIf="nbrOfNotifications">
+            <span class="text-danger notifNumber">{{ nbrOfNotifications }}</span>
+
+            <!-- Bouton de notification -->
+            <a  class="circle-link" href="#" (click)="action1 = !action1" >
+            <span><img src="../assets/img/notif red.png" alt="Notification" height="24" /></span>
+            </a>
+
+            <!-- bouton de déconnexion -->
+            <a  class="circle-link" href="#" (click)="isConnected = !isConnected; displayLoginForm = false; nbrOfNotifications = 0" >
+            <span><img src="../assets/img/power-button-red002.png" alt="Disconnect" height="24" /></span>
+            </a>
+        </div>
+</div>
+      
+<!-- Corps de la page -->
+<div class="content" role="main">
+
+  <!-- début block connexion -->
+  <div class="connection-block" *ngIf="!isConnected">
+    <!-- Highlight Card -->
+    <div class="card highlight-card card-small">
+      Bienvenue !   
+    </div>  
+
+    <!-- Mini Cards -->
+    <div class="card-container">
+      <a class="card" href="#" (click)="displayLoginForm = !displayLoginForm; displayRegisterForm = false"><span>Connexion</span></a>    
+      <a class="card" href="#" (click)="displayRegisterForm = !displayRegisterForm; displayLoginForm = false" ><span>S'enregistrer</span></a>
+    </div>
+
+    <!-- Formulaire de connexion -->
+    <div class="divForm" *ngIf="displayLoginForm">
+      <app-login-form 
+        (loginEventEmitter) = "loginEventReceiver($event)"
+        (logNotificationEventEmitter) = "logNotificationEventReceiver($event)">
+      </app-login-form>
+    </div>
+
+    <!-- Formulaire d'enregistrement -->
+    <div class="divForm" *ngIf="displayRegisterForm">
+      <app-register-form></app-register-form>
+    </div>
+  </div>
+  <!-- fin block connexion -->
+
+
+
+  <!-- début block accueil admin -->
+  <div class="home-admin-block" *ngIf="isConnected">
+
+    <!-- Mini Cards -->
+    <div class="card-container">
+      <a class="card" href="#" (click)="getBatches()"><span>Récupération des lots</span></a>    
+      <a class="card" href="#" (click)="linkMediaToMembers()" ><span>Répartion médias / membres</span></a>
+    </div>
+
+    <!-- Message Card -->
+    <div class="card highlight-card card-small" *ngIf="displayPopMessage">
+        {{ popMessage }}   
+      </div>
+  </div>
+  <!-- fin block accueil admin -->
+  
+</div>

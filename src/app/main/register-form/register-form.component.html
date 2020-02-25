@@ -1,0 +1,26 @@
+<form [formGroup] = "registerForm" (ngSubmit) = "register()">
+        <div class="form-group">
+            <p>- ENREGISTREMENT -</p>
+            <label>Nom d'utilisateur</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid' : !registerForm.value.adminpseudo}" formControlName = "adminpseudo">
+        </div>
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input type="password" class="form-control" [ngClass]="{'is-invalid' : !registerForm.value.adminpassword}" formControlName = "adminpassword">
+        </div>
+        <div class="form-group">
+            <label>Même mot de passe</label>
+            <input type="password" class="form-control" [ngClass]="{'is-invalid' : !registerForm.value.verifpassword}" formControlName = "verifpassword">
+        </div>
+        <button type="submit" class="btn btn-primary">OK</button>
+    </form>
+    
+    <div *ngIf="requestToSmartReportingBatch.apiResponseOK">
+        <div>
+            <p>Administrateur bien enregistré !</p>
+        </div>
+    </div>
+    
+    <div *ngIf="requestToSmartReportingBatch.apiResponseError">
+        <div><p>Enregistrement refusé !</p></div>
+    </div>    
